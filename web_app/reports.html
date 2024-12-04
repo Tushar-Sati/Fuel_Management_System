@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <img src="images/fuel-logo.png" alt="Fuel Management Logo" class="logo">
+  <h1>Reports</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="fuel-records.html">Fuel Records</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="container">
+  <h2>Generate and View Reports</h2>
+
+  <form id="report-form">
+    <div class="form-group">
+      <label for="start-date">Start Date:</label>
+      <input type="date" id="start-date" name="start-date" required>
+    </div>
+    <div class="form-group">
+      <label for="end-date">End Date:</label>
+      <input type="date" id="end-date" name="end-date" required>
+    </div>
+    <button type="submit" class="submit-btn">Generate Report</button>
+  </form>
+
+  <div id="report-results">
+    <h3>Report Results</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Vehicle ID</th>
+        <th>Total Fuel (L)</th>
+        <th>Total Cost</th>
+        <th>Date Range</th>
+      </tr>
+      </thead>
+      <tbody id="report-table">
+        <!-- Report data will be dynamically generated here -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2024 Fuel Management System | All Rights Reserved</p>
+  <img src="images/fuel-pump.png" alt="Fuel Pump" class="footer-image">
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
