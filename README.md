@@ -57,7 +57,18 @@ FuelManagementSystem/
 │   │   └── Main.java         # Main class for running the project
 ├── lib/                      # MySQL JDBC driver (Connector/J .jar file)
 └── db/                       # Database setup script
-    └── fuel_management_db.sql
+|    └── fuel_management_db.sql
+├── web_app/                  # Frontend web resources
+    ├── css/                  # Stylesheets for the project
+    |   ├── styles.css/       # Main stylesheet
+    ├── images/               # Images used in the web application
+    ├── js/                   # JavaScript files
+    |   ├── script.js/        # Main JavaScript file
+    ├── fuel-records.html/    # Page to view and manage fuel records
+    ├── index.html/           # Home page(Main page to start website)
+    ├── reports.html/         # Reports page for analytics
+    ├── settings.html/        # Settings page
+
 ```
 
 - **`dao/`**: Contains classes for database operations.
