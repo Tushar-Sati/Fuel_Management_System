@@ -4,13 +4,35 @@
 A simple Fuel Management System built with Java and MySQL for managing fuel types, quantities, and transactions. This project demonstrates basic CRUD operations with database connectivity using JDBC.
 
 ## Table of Contents
-
+- [Web App Features](#web-app-features)
 - [Prerequisites](#prerequisites)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
 - [Running the Project](#running-the-project)
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
+
+## Web App Features
+
+The web application expands the functionality of the console-based system by providing the following features:
+
+1. **User Authentication**:
+   - Secure login and registration for users.
+   - Role-based access control (Admin/User).
+
+2. **Fuel Management**:
+   - Add, update, and delete fuel types and quantities via a user-friendly interface.
+   - Real-time inventory updates.
+
+3. **Transaction Management**:
+   - Record transactions (purchase, sale, or refill) through the web app.
+   - View detailed transaction history with filtering and sorting options.
+
+4. **Dashboard**:
+   - Displays key metrics such as total fuel in stock, recent transactions, and fuel type summaries.
+
+5. **Responsive Design**:
+   - Fully responsive design ensuring accessibility across devices (desktop, tablet, mobile).
 
 ## Prerequisites
 
