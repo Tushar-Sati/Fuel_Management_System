@@ -1,10 +1,9 @@
+# Real Estate Management System
 
-# Fuel Management System
-
-A simple Fuel Management System built with Java and MySQL for managing fuel types, quantities, and transactions. This project demonstrates basic CRUD operations with database connectivity using JDBC.
+A comprehensive Real Estate Management System built with Java and MySQL for managing properties, clients, and transactions. This project demonstrates essential CRUD operations with database connectivity using JDBC.
 
 ## Table of Contents
-- [Web App Features](#web-app-features)
+- [Application Features](#application-features)
 - [Prerequisites](#prerequisites)
 - [Project Structure](#project-structure)
 - [Setup Instructions](#setup-instructions)
@@ -12,35 +11,35 @@ A simple Fuel Management System built with Java and MySQL for managing fuel type
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
 
-## Web App Features
+## Application Features
 
-The web application expands the functionality of the console-based system by providing the following features:
+This application includes the following features:
 
-1. **User Authentication**:
-   - Secure login and registration for users.
-   - Role-based access control (Admin/User).
+1. **Property Management**:
+   - Add, update, and delete property records.
+   - Categorize properties by type, location, and status (available, sold, rented).
 
-2. **Fuel Management**:
-   - Add, update, and delete fuel types and quantities via a user-friendly interface.
-   - Real-time inventory updates.
+2. **Client Management**:
+   - Maintain a directory of clients and their contact details.
+   - Track client interactions and property interests.
 
 3. **Transaction Management**:
-   - Record transactions (purchase, sale, or refill) through the web app.
-   - View detailed transaction history with filtering and sorting options.
+   - Record transactions (sale or lease agreements).
+   - Generate transaction summaries and detailed reports.
 
 4. **Dashboard**:
-   - Displays key metrics such as total fuel in stock, recent transactions, and fuel type summaries.
+   - View key metrics, including total properties managed, active clients, and recent transactions.
 
-5. **Responsive Design**:
-   - Fully responsive design ensuring accessibility across devices (desktop, tablet, mobile).
+5. **Responsive Design** (Optional Web Interface):
+   - User-friendly interface accessible across devices (desktop, tablet, mobile).
 
 ## Prerequisites
 
-Before you can run the project, make sure you have the following installed:
+Before running the project, ensure you have the following installed:
 
 1. **Java Development Kit (JDK)**: Version 8 or higher (This project uses JDK 23).
-2. **IntelliJ IDEA**: (or any Java-compatible IDE).
-3. **MySQL Database**: Make sure MySQL is installed and running on your system.
+2. **IntelliJ IDEA** (or any Java-compatible IDE).
+3. **MySQL Database**: Ensure MySQL is installed and running.
 4. **MySQL Connector/J**: The JDBC driver for MySQL.
 
 ## Project Structure
@@ -48,33 +47,33 @@ Before you can run the project, make sure you have the following installed:
 The project is organized as follows:
 
 ```
-FuelManagementSystem/
+RealEstateManagementSystem/
 ├── src/
 │   ├── main/
 │   │   ├── dao/              # Data Access Objects (for database operations)
-│   │   ├── model/            # Database models (e.g., Fuel, Transaction)
+│   │   ├── model/            # Database models (e.g., Property, Client, Transaction)
 │   │   ├── util/             # Utility classes (e.g., DBConnection)
 │   │   └── Main.java         # Main class for running the project
 ├── lib/                      # MySQL JDBC driver (Connector/J .jar file)
-└── db/                       # Database setup script
-|    └── fuel_management_db.sql
+├── db/                       # Database setup script
+│   └── real_estate_db.sql
 ├── web_app/                  # Frontend web resources
     ├── css/                  # Stylesheets for the project
-    |   ├── styles.css/       # Main stylesheet
+    │   ├── styles.css        # Main stylesheet
     ├── images/               # Images used in the web application
     ├── js/                   # JavaScript files
-    |   ├── script.js/        # Main JavaScript file
-    ├── fuel-records.html/    # Page to view and manage fuel records
-    ├── index.html/           # Home page(Main page to start website)
-    ├── reports.html/         # Reports page for analytics
-    ├── settings.html/        # Settings page
-
+    │   ├── script.js         # Main JavaScript file
+    ├── properties.html       # Page to view and manage properties
+    ├── clients.html          # Page to view and manage clients
+    ├── transactions.html     # Page to view and manage transactions
+    ├── index.html            # Home page (main entry point for the web app)
 ```
 
 - **`dao/`**: Contains classes for database operations.
-- **`model/`**: Contains Java classes representing the `Fuel` and `Transaction` tables.
+- **`model/`**: Contains Java classes representing `Property`, `Client`, and `Transaction`.
 - **`util/`**: Contains utility classes such as `DBConnection` for managing database connections.
 - **`db/`**: Contains SQL script to set up the MySQL database and tables.
+- **`web_app/`**: Contains the resources for the optional web application interface.
 
 ## Setup Instructions
 
@@ -86,39 +85,46 @@ Follow these steps to set up and run the project:
 ### 2. Set Up the Database
 
 1. Open MySQL Workbench or MySQL Command Line.
-2. Run the SQL script located at `db/fuel_management_db.sql` to create the necessary database and tables.
+2. Run the SQL script located at `db/real_estate_db.sql` to create the necessary database and tables.
 
     ```sql
-    -- Use this SQL script to set up the database
-    
-    CREATE DATABASE IF NOT EXISTS FuelManagementDB;
+    CREATE DATABASE IF NOT EXISTS RealEstateDB;
 
-    USE FuelManagementDB;
+    USE RealEstateDB;
 
-    CREATE TABLE IF NOT EXISTS Fuel (
-        fuel_id INT AUTO_INCREMENT PRIMARY KEY,
+    CREATE TABLE IF NOT EXISTS Property (
+        property_id INT AUTO_INCREMENT PRIMARY KEY,
+        address VARCHAR(255) NOT NULL,
         type VARCHAR(50) NOT NULL,
-        quantity DOUBLE NOT NULL
+        status ENUM('available', 'sold', 'rented') NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS Client (
+        client_id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        contact_info VARCHAR(255) NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS Transaction (
         transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-        fuel_id INT,
-        transaction_type ENUM('purchase', 'sale', 'refill') NOT NULL,
-        amount DOUBLE NOT NULL,
+        property_id INT,
+        client_id INT,
+        transaction_type ENUM('sale', 'lease') NOT NULL,
+        amount DECIMAL(15, 2) NOT NULL,
         transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (fuel_id) REFERENCES Fuel(fuel_id)
+        FOREIGN KEY (property_id) REFERENCES Property(property_id),
+        FOREIGN KEY (client_id) REFERENCES Client(client_id)
     );
     ```
 
-3. **Note**: Make sure to update the MySQL username and password in the `DBConnection.java` file to match your MySQL setup.
+3. **Note**: Update the MySQL username and password in the `DBConnection.java` file to match your MySQL setup.
 
 ### 3. Configure Database Connection
 
 - Open `src/util/DBConnection.java` and update the following lines with your MySQL credentials:
 
     ```java
-    private static final String URL = "jdbc:mysql://localhost:3306/FuelManagementDB";
+    private static final String URL = "jdbc:mysql://localhost:3306/RealEstateDB";
     private static final String USER = "your_username";
     private static final String PASSWORD = "your_password";
     ```
@@ -140,19 +146,21 @@ Follow these steps to set up and run the project:
 
 ## Usage
 
-Once the project is running, you will see a console-based menu for the Fuel Management System. Here are the options available:
+Once the project is running, you will see a console-based menu for the Real Estate Management System. Options include:
 
-1. **Add Fuel**: Allows you to add a new fuel type and quantity.
-2. **View All Fuels**: Displays all fuel types and their quantities.
-3. **Add Transaction**: Records a transaction for a fuel type (purchase, sale, or refill).
-4. **View All Transactions**: Displays all transaction history.
-5. **Exit**: Exits the application.
+1. **Add Property**: Add a new property to the database.
+2. **View Properties**: View all properties, filtered by type or status.
+3. **Add Client**: Register a new client.
+4. **Record Transaction**: Log a sale or lease transaction.
+5. **View Transactions**: Display transaction history.
+6. **Exit**: Exit the application.
 
 ### Example Usage
 
-- **Add Fuel**: When prompted, enter the type of fuel (e.g., Diesel) and the quantity.
-- **Add Transaction**: Enter the fuel ID, transaction type (purchase, sale, or refill), and the amount.
-- **View Transactions**: Shows a list of all transactions.
+- **Add Property**: Enter details such as address, type, and status.
+- **Add Client**: Provide the client’s name and contact details.
+- **Record Transaction**: Select a property and client, then specify transaction type and amount.
+- **View Transactions**: Displays all transactions with filters for type or date.
 
 ## Troubleshooting
 
@@ -163,8 +171,8 @@ Once the project is running, you will see a console-based menu for the Fuel Mana
     - If IntelliJ cannot find the MySQL Connector/J, ensure that it is added as a library in your project.
 
 - **Table Not Found Error**:
-    - Make sure you have run the SQL script `fuel_management_db.sql` to create the tables in MySQL.
+    - Make sure you have run the SQL script `real_estate_db.sql` to create the tables in MySQL.
 
 ---
 
-This guide should help you get up and running with the Fuel Management System project. For any further issues, please consult the error messages or documentation for IntelliJ and MySQL.
+This guide should help you get up and running with the Real Estate Management System project. For any further issues, consult IntelliJ or MySQL documentation.
