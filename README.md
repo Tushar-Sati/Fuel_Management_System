@@ -12,6 +12,22 @@ A simple Fuel Management System built with Java and MySQL for managing fuel type
 - [Usage](#usage)
 - [Troubleshooting](#troubleshooting)
 
+## Freatures
+### 1. User Management:
+- Registration and Login system with role-based access (User/Admin).
+- Password storage with basic security measures.
+### 2. Event Management:
+- Admins can create, update, delete, and manage events.
+- View a list of events with relevant details such as date, location, and organizer.
+### 3. Reporting:
+- Admins can generate event reports in real-time.
+### 4. Professional Front-End:
+- Fully responsive and interactive UI using HTML, CSS, and JavaScript.
+### 5. Database Management:
+- MySQL database integration to store and retrieve user and event data securely.
+### 6. Scalable Design:
+- Easily extendable to include additional features like ticket management or notifications.
+
 ## Prerequisites
 
 Before you can run the project, make sure you have the following installed:
@@ -20,6 +36,7 @@ Before you can run the project, make sure you have the following installed:
 2. **IntelliJ IDEA**: (or any Java-compatible IDE).
 3. **MySQL Database**: Make sure MySQL is installed and running on your system.
 4. **MySQL Connector/J**: The JDBC driver for MySQL.
+5. **Maven: For dependency management and project build.
 
 ## Project Structure
 
@@ -29,13 +46,64 @@ The project is organized as follows:
 FuelManagementSystem/
 ├── src/
 │   ├── main/
-│   │   ├── dao/              # Data Access Objects (for database operations)
-│   │   ├── model/            # Database models (e.g., Fuel, Transaction)
-│   │   ├── util/             # Utility classes (e.g., DBConnection)
-│   │   └── Main.java         # Main class for running the project
-├── lib/                      # MySQL JDBC driver (Connector/J .jar file)
-└── db/                       # Database setup script
-    └── fuel_management_db.sql
+│   │   ├── dao/                  # Data Access Objects
+│   │   │   ├── FuelDAO.java      # DAO for fuel management
+│   │   │   ├── TransactionDAO.java # DAO for transaction management
+│   │   │   └── UserDAO.java      # DAO for user management
+│   │   ├── model/                # Data models
+│   │   │   ├── Fuel.java         # Fuel entity
+│   │   │   ├── Transaction.java  # Transaction entity
+│   │   │   └── User.java         # User entity
+│   │   ├── service/              # Service layer
+│   │   │   ├── FuelService.java  # Business logic for fuel operations
+│   │   │   ├── TransactionService.java # Business logic for transactions
+│   │   │   └── UserService.java  # Business logic for user operations
+│   │   ├── util/                 # Utility classes
+│   │   │   └── DBConnection.java # Database connection utility
+│   │   ├── web/                  # Web controllers
+│   │   │   ├── UserServlet.java  # Servlet for user operations
+│   │   │   ├── FuelServlet.java  # Servlet for fuel operations
+│   │   │   ├── TransactionServlet.java # Servlet for transaction operations
+│   │   └── Main.java             # Console-based application entry point
+├── src/test/                     # Unit tests
+│   ├── dao/                      # Tests for DAO classes
+│   │   ├── FuelDAOTest.java      # FuelDAO tests
+│   │   ├── TransactionDAOTest.java # TransactionDAO tests
+│   │   └── UserDAOTest.java      # UserDAO tests
+│   ├── service/                  # Tests for service classes
+│   │   ├── FuelServiceTest.java  # FuelService tests
+│   │   ├── TransactionServiceTest.java # TransactionService tests
+│   │   └── UserServiceTest.java  # UserService tests
+├── src/main/webapp/              # Web resources
+│   ├── WEB-INF/                  # Deployment descriptor and config
+│   │   └── web.xml               # Servlet mappings and security
+│   ├── jsp/                      # JSP pages
+│   │   ├── fuel-records.jsp      # Records the Data
+│   │   ├── report.jsp            # Report  Area
+│   │   └── setting.jsp           # Setting the type of Data
+│   │── js/                       # Java Script Page
+|   |   |__ script.js             # Java Script  
+│   ├── css/                      # Stylesheets
+│   │   └── styles.css            # Styling for web pages
+│   |── index.jsp                 # Home page
+|   ├── fuel-records.html/    # Page to view and manage fuel records
+|   ├── index.html/           # Home page(Main page to start website)
+|   ├── reports.html/         # Reports page for analytics
+|   ├── settings.html/        # Settings page
+|   |__ images/               # Images used in the web application
+├── lib/                          # External libraries
+│   └── mysql-connector-java-x.x.x.jar # MySQL JDBC driver
+├── db/                           # Database scripts
+│   ├── fuel_management_db.sql    # Script for fuel tables
+│   └── user_management_db.sql    # Script for user tables
+├── docs/                         # Documentation
+│   ├── API_Documentation.md      # API reference
+│   ├── Project_Report.md         # Final project report
+│   └── User_Manual.md            # User instructions
+├── pom.xml                       # Maven configuration
+├── README.md                     # Project overview and instructions
+└── reviews/                      # Review notes and resolutions
+    └── review_comments.md        # Review feedback
 ```
 
 - **`dao/`**: Contains classes for database operations.
@@ -49,8 +117,13 @@ Follow these steps to set up and run the project:
 
 ### 1. Clone or Download the Project
 - Clone the repository or download the project files.
+  
+### 2. Import the Project into Your IDE
+Open your IDE (IntelliJ IDEA, Eclipse, or VS Code).
+Import the project as a Maven Project.
+Ensure the pom.xml file is loaded to download necessary dependencies.
 
-### 2. Set Up the Database
+### 3. Set Up the Database
 
 1. Open MySQL Workbench or MySQL Command Line.
 2. Run the SQL script located at `db/fuel_management_db.sql` to create the necessary database and tables.
@@ -80,7 +153,7 @@ Follow these steps to set up and run the project:
 
 3. **Note**: Make sure to update the MySQL username and password in the `DBConnection.java` file to match your MySQL setup.
 
-### 3. Configure Database Connection
+### 4. Configure Database Connection
 
 - Open `src/util/DBConnection.java` and update the following lines with your MySQL credentials:
 
@@ -90,7 +163,7 @@ Follow these steps to set up and run the project:
     private static final String PASSWORD = "your_password";
     ```
 
-### 4. Add MySQL Connector/J to the Project
+### 5. Add MySQL Connector/J to the Project
 
 - Download the MySQL Connector/J `.jar` file from [MySQL's official site](https://dev.mysql.com/downloads/connector/j/).
 - Place the `.jar` file in the `lib/` folder.
